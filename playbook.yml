@@ -1,0 +1,20 @@
+---
+- name: Minikube'da Nginx sunucularını yönetme
+  hosts: localhost
+  connection: local
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+    - name: Nginx Deployment dosyasını uygula
+      kubernetes.core.k8s:
+        state: present
+        src: ./nginx-deployment.yml
+        kubeconfig: ~/.kube/config
+        namespace: default
+    
+    - name: Nginx Service dosyasını uygula
+      kubernetes.core.k8s:
+        state: present
+        src: ./nginx-service.yml
+        kubeconfig: ~/.kube/config
+        namespace: default
